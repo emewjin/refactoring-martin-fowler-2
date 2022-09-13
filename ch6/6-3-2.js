@@ -1,13 +1,14 @@
 export class Order {
+  #data;
   constructor(aRecord) {
-    this._data = aRecord;
+    this.#data = aRecord;
   }
 
   get quantity() {
-    return this._data.quantity;
+    return this.#data.quantity;
   }
   get itemPrice() {
-    return this._data.itemPrice;
+    return this.#data.itemPrice;
   }
 
   get price() {
