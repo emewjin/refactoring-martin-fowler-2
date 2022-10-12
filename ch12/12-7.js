@@ -1,7 +1,10 @@
+// 단순히 하나 정도만 다른 거라면, 굳이 클래스를 나눌 필요 없다. -> 캡슐화 강조 -> 외부에서 사용하기 쉽게
 class Person {
   #name;
-  constructor(name) {
+  #gender;
+  constructor(name, gender) {
     this.#name = name;
+    this.#gender = gender;
   }
 
   get name() {
@@ -9,37 +12,29 @@ class Person {
   }
 
   get genderCode() {
-    return 'X';
+    return this.#genderCode;
   }
-}
 
-class Male extends Person {
-  get genderCode() {
-    return 'M';
+  get isMale() {
+    return this.#genderCode === 'M';
   }
-}
 
-class Female extends Person {
-  get genderCode() {
-    return 'F';
+  static create(record) {
+    switch (record.gender) {
+      case 'M':
+        return new Male(record.name);
+      case 'F':
+        return new Female(record.name);
+      default:
+        return new Person(record.name);
+    }
   }
 }
 
 function loadFromInput(data) {
   const result = [];
   data.forEach((record) => {
-    let person;
-    switch (record.gender) {
-      case 'M':
-        person = new Male(record.name);
-        break;
-      case 'F':
-        person = new Female(record.name);
-        break;
-      default:
-        person = new Person(record.name);
-    }
-    result.push(person);
+    result.push(Person.create(record));
   });
   return result;
 }
@@ -49,5 +44,7 @@ const people = loadFromInput([
   { name: '철수', gender: 'M' },
   { name: '밥', gender: 'M' },
 ]);
-const numberOfMales = people.filter((p) => p instanceof Male).length;
+
+const numberOfMales = people.filter((p) => p.isMale).length;
+
 console.log(numberOfMales);
