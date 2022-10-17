@@ -35,3 +35,8 @@
 이유 2. 객체가 아니라서 옛날 방식 같다.
 
 ## 5. 다형성
+
+## 6. 객체지향
+
+createStatement은 절차지향적으로 느껴진다. createStatement도 객체지향으로 리팩토링해보자.
+[코드](../challenge/result/)
