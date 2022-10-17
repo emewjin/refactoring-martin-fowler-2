@@ -1,12 +1,17 @@
 export function statement(invoice, plays) {
+  const statement = createStatement(invoice, plays);
+  return renderPlainText(statement);
   // 출력에 필요한 데이터 가공
+}
+
+function createStatement(invoice, plays) {
   const statement = {};
   statement.customer = invoice.customer;
   statement.performances = invoice.performances.map(enrichPerformance);
   statement.totalAmount = totalAmount(statement.performances);
   statement.totalCredit = totalCredit(statement.performances);
 
-  return renderPlainText(statement);
+  return statement;
 
   function enrichPerformance(performance) {
     const result = { ...performance };
